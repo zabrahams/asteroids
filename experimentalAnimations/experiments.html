@@ -15,9 +15,18 @@
       canvasEl.width = 500;
       var ctx = canvasEl.getContext("2d");
       var animationView = new AnimationView(ctx);
-      circle = new Circle([200, 200]);
+      circle = new Circle({pos: [200, 200]});
+      circle2 = new Circle({pos: [400, 100],
+                            color: new Color("#3e0422")});
       animationView.objects.push(circle);
-      Animations.pulse(circle, 10, 6);
+      animationView.objects.push(circle2);
+      var newPulse = function newPulse () {
+        Animations.pulse(circle, 3, 20, newPulse);
+      }
+      Animations.pulse(circle, 5, 10, newPulse);
+      Animations.sizePulse(circle, 1, 50);
+      Animations.pulse(circle2, 5, 15);
+      Animations.sizePulse(circle2, 3, 20);
     </script>
   </body>
 </html>

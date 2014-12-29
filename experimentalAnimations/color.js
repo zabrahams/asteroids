@@ -38,6 +38,7 @@ Color.prototype.update = function () {
     rHex = "00";
   } else {
     rHex = this.red.toString(16);
+    rHex = rHex.length === 1 ? "0" + rHex : rHex;
   }
 
   if (this.green > 255) {
@@ -46,6 +47,7 @@ Color.prototype.update = function () {
     gHex = "00";
   } else {
     gHex = this.green.toString(16);
+    gHex = gHex.length === 1 ? "0" + gHex : gHex;
   }
 
   if (this.blue > 255) {
@@ -54,6 +56,7 @@ Color.prototype.update = function () {
     bHex = "00";
   } else {
     bHex = this.blue.toString(16);
+    bHex = bHex.length === 1 ? "0" + bHex : bHex;
   }
 
   this.value = "#" + rHex + gHex + bHex;

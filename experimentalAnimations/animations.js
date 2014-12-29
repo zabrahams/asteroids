@@ -6,15 +6,18 @@ var AnimationView = function (ctx) {
 
 AnimationView.prototype.step = function () {
   var aniView = this;
-  this.objects.forEach( function (object) {
+  aniView.ctx.clearRect(0, 0,  500, 500)
+  for (var i=0; i < this.objects.length; i++) {
+    var object = this.objects[i];
     object.currAnimations.forEach (function (animation) {
       animation.call(object);
     });
     object.draw(aniView.ctx);
     object.currAnimations = object.nextAnimations;
     object.nextAnimations = [];
-  });
-}
+  }
+};
+
 
 var Animations = {};
 
@@ -40,14 +43,38 @@ Animations.pulse = function (obj, change, frames, callback) {
   });
 };
 
+Animations.changeSize = function (obj, change, frames, callback) {
+  var _changeSize = function _changeSize () {
+    if (obj.radius + change > 0) {
+      obj.radius += change;
+    }
+    if (frames > 0) {
+      frames -= 1;
+      obj.nextAnimations.push(_changeSize);
+    } else {
+      callback && callback();
+    }
+  };
+
+  obj.nextAnimations.push(_changeSize);
+};
+
+Animations.sizePulse = function (obj, change, frames, callback) {
+  var secondFrames = frames;
+  var secondChange = change * -1;
+  Animations.changeSize(obj, change, frames, function () {
+    Animations.changeSize(obj, secondChange, secondFrames, callback);
+  });
+};
 
 
-var Circle = function (pos){
-  this.pos = pos;
-  this.color = new Color(Circle.COLOR);
-  this.radius = Circle.RADIUS;
+
+var Circle = function (options){
+  this.pos = options.pos;
+  this.color = options.color || new Color(Circle.COLOR);
+  this.radius = options.radius || Circle.RADIUS;
   this.currAnimations = [];
-  this.nextAnimations = []
+  this.nextAnimations = [];
 };
 
 Circle.COLOR = "#40aa40";
@@ -55,6 +82,7 @@ Circle.RADIUS = 40;
 
 Circle.prototype.draw = function (ctx) {
   ctx.fillStyle = this.color.value;
+
   ctx.beginPath();
 
   ctx.arc(
@@ -67,4 +95,6 @@ Circle.prototype.draw = function (ctx) {
   );
 
   ctx.fill();
+  ctx.stroke();
+
 };
