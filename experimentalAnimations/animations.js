@@ -18,28 +18,29 @@ AnimationView.prototype.step = function () {
 
 var Animations = {};
 
-Animations.brighten = function (obj, change, frames, callback) {
-  var _brighten = function _brighten () {
+Animations.changeBright = function (obj, change, frames, callback) {
+  var _changeBright = function _changeBright () {
     obj.color.brighten(change);
-    console.log(obj.color.value);
     if (frames > 0) {
       frames -= 1;
-      obj.nextAnimations.push(_brighten);
+      obj.nextAnimations.push(_changeBright);
     } else {
       callback && callback();
     }
   };
 
-  obj.nextAnimations.push(_brighten);
+  obj.nextAnimations.push(_changeBright);
 };
 
 Animations.pulse = function (obj, change, frames, callback) {
   var darkenFrames = frames;
   var darkenChange = change * -1;
-  Animations.brighten(obj, change, frames, function () {
-    Animations.brighten(obj, darkenChange, darkenFrames, callback);
+  Animations.changeBright(obj, change, frames, function () {
+    Animations.changeBright(obj, darkenChange, darkenFrames, callback);
   });
 };
+
+
 
 var Circle = function (pos){
   this.pos = pos;
