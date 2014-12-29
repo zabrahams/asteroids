@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <script src="./color.js"></script>
+    <script src="./animations.js"></script>
+    <meta charset="utf-8">
+    <title>Animation Experiments</title>
+  </head>
+  <body>
+    <canvas id="game-canvas"></canvas>
+    <script>
+      var canvasEl = document.getElementById("game-canvas");
+      canvasEl.height = 500;
+      canvasEl.width = 500;
+      var ctx = canvasEl.getContext("2d");
+      var animationView = new AnimationView(ctx);
+      circle = new Circle([200, 200]);
+      animationView.objects.push(circle);
+      Animations.pulse(circle, 20, 10);
+    </script>
+  </body>
+</html>
