@@ -21,12 +21,27 @@
       animationView.objects.push(circle);
       animationView.objects.push(circle2);
       var newPulse = function newPulse () {
-        Animations.pulse(circle, 3, 20, newPulse);
-      }
-      Animations.pulse(circle, 5, 10, newPulse);
-      Animations.sizePulse(circle, 1, 50);
-      Animations.pulse(circle2, 5, 15);
-      Animations.sizePulse(circle2, 3, 20);
+        Animations.pulse({
+          obj: circle,
+          change: 3,
+          frames: 20,
+          callback: newPulse});
+      };
+      newPulse();
+      Animations.sizePulse({
+        obj: circle,
+        change: 1,
+        frames: 50
+      });
+      Animations.pulse({
+        obj: circle2,
+        change: 10,
+        frames: 10});
+      Animations.sizePulse({
+        obj: circle2,
+        change: 1,
+        frames: 20
+      });
     </script>
   </body>
 </html>
