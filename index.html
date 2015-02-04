@@ -13,6 +13,7 @@
         display: block;
         width: 900px;
         margin: auto;
+        margin-top: 50px;
         border-radius: 20px;
       }
 
@@ -20,8 +21,9 @@
         display: block;
         width: 700px;
         margin: auto;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
+        border-radius: 20px;
+        margin-top: 30px
+
       }
 
     </style>
@@ -37,25 +39,13 @@
     <script src="lib/ship.js"></script>
     <script src="lib/bullet.js"></script>
     <script src="lib/keymaster.js"></script>
+    <script src="lib/start_game.js"></script>
   </head>
   <body>
     <canvas id="game-canvas" class="game-canvas"></canvas>
     <canvas id="hud-canvas" class="hud-canvas"></canvas>
     <script>
-      var canvasEl = document.getElementById("game-canvas");
-      canvasEl.height = Asteroids.Game.DIM_Y;
-      canvasEl.width = Asteroids.Game.DIM_X;
-      var ctx = canvasEl.getContext("2d");
-      var hudEl = document.getElementById("hud-canvas");
-      hudEl.height = Asteroids.Hud.DIM_Y;
-      hudEl.width = Asteroids.Hud.DIM_X;
-      var hudCtx = hudEl.getContext("2d");
-
-      var hud = new Asteroids.Hud()
-      var game = new Asteroids.Game(hud);
-      var gameView = new Asteroids.GameView(game, ctx, hud, hudCtx);
-
-      gameView.start();
+      Asteroids.start_game();
     </script>
   </body>
 </html>
